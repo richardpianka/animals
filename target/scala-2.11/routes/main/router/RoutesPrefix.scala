@@ -1,7 +1,7 @@
 
 // @GENERATOR:play-routes-compiler
 // @SOURCE:/Users/richardpianka/Code/animals/conf/routes
-// @DATE:Tue Aug 09 22:42:22 EDT 2016
+// @DATE:Tue Aug 09 23:35:59 EDT 2016
 
 
 package router {

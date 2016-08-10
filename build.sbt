@@ -13,7 +13,10 @@ libraryDependencies ++= Seq(
   "org.scalatestplus.play" %% "scalatestplus-play" % "1.5.1" % Test,
   "com.typesafe.slick" %% "slick" % "3.1.1",
   "com.typesafe.slick" %% "slick-codegen" % "3.1.1",
-  "mysql" % "mysql-connector-java" % "5.1.39"
+  "mysql" % "mysql-connector-java" % "5.1.39",
+  "com.wordnik" %% "swagger-play2" % "1.3.12"
 )
 
 resolvers += "scalaz-bintray" at "http://dl.bintray.com/scalaz/releases"
+
+routesGenerator := InjectedRoutesGenerator

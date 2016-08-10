@@ -1,7 +1,7 @@
 
 // @GENERATOR:play-routes-compiler
 // @SOURCE:/Users/richardpianka/Code/animals/conf/routes
-// @DATE:Tue Aug 09 22:42:22 EDT 2016
+// @DATE:Tue Aug 09 23:35:59 EDT 2016
 
 package router
 
@@ -25,6 +25,8 @@ class Routes(
   Assets_4: controllers.Assets,
   // @LINE:15
   AnimalController_3: controllers.AnimalController,
+  // @LINE:23
+  ApiHelpController_5: controllers.ApiHelpController,
   val prefix: String
 ) extends GeneratedRouter {
 
@@ -39,14 +41,16 @@ class Routes(
     // @LINE:13
     Assets_4: controllers.Assets,
     // @LINE:15
-    AnimalController_3: controllers.AnimalController
-  ) = this(errorHandler, HomeController_1, CountController_0, AsyncController_2, Assets_4, AnimalController_3, "/")
+    AnimalController_3: controllers.AnimalController,
+    // @LINE:23
+    ApiHelpController_5: controllers.ApiHelpController
+  ) = this(errorHandler, HomeController_1, CountController_0, AsyncController_2, Assets_4, AnimalController_3, ApiHelpController_5, "/")
 
   import ReverseRouteContext.empty
 
   def withPrefix(prefix: String): Routes = {
     router.RoutesPrefix.setPrefix(prefix)
-    new Routes(errorHandler, HomeController_1, CountController_0, AsyncController_2, Assets_4, AnimalController_3, prefix)
+    new Routes(errorHandler, HomeController_1, CountController_0, AsyncController_2, Assets_4, AnimalController_3, ApiHelpController_5, prefix)
   }
 
   private[this] val defaultPrefix: String = {
@@ -59,6 +63,10 @@ class Routes(
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """message""", """controllers.AsyncController.message"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """assets/""" + "$" + """file<.+>""", """controllers.Assets.versioned(path:String = "/public", file:Asset)"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """animals/""" + "$" + """id<[^/]+>""", """controllers.AnimalController.animalById(id:Int)"""),
+    ("""GET""", this.prefix, """controllers.Assets.at(path:String = "/public", file:String = "index.html")"""),
+    ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """api-docs""", """controllers.ApiHelpController.getResources"""),
+    ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """api-docs/api/todos""", """controllers.ApiHelpController.getResource(path:String = "/api/todos")"""),
+    ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """assets/""" + "$" + """file<.+>""", """controllers.Assets.at(path:String = "/public", file:String)"""),
     Nil
   ).foldLeft(List.empty[(String,String,String)]) { (s,e) => e.asInstanceOf[Any] match {
     case r @ (_,_,_) => s :+ r.asInstanceOf[(String,String,String)]
@@ -151,6 +159,74 @@ class Routes(
     )
   )
 
+  // @LINE:21
+  private[this] lazy val controllers_Assets_at5_route = Route("GET",
+    PathPattern(List(StaticPart(this.prefix)))
+  )
+  private[this] lazy val controllers_Assets_at5_invoker = createInvoker(
+    Assets_4.at(fakeValue[String], fakeValue[String]),
+    HandlerDef(this.getClass.getClassLoader,
+      "router",
+      "controllers.Assets",
+      "at",
+      Seq(classOf[String], classOf[String]),
+      "GET",
+      """ swagger""",
+      this.prefix + """"""
+    )
+  )
+
+  // @LINE:23
+  private[this] lazy val controllers_ApiHelpController_getResources6_route = Route("GET",
+    PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("api-docs")))
+  )
+  private[this] lazy val controllers_ApiHelpController_getResources6_invoker = createInvoker(
+    ApiHelpController_5.getResources,
+    HandlerDef(this.getClass.getClassLoader,
+      "router",
+      "controllers.ApiHelpController",
+      "getResources",
+      Nil,
+      "GET",
+      """""",
+      this.prefix + """api-docs"""
+    )
+  )
+
+  // @LINE:28
+  private[this] lazy val controllers_ApiHelpController_getResource7_route = Route("GET",
+    PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("api-docs/api/todos")))
+  )
+  private[this] lazy val controllers_ApiHelpController_getResource7_invoker = createInvoker(
+    ApiHelpController_5.getResource(fakeValue[String]),
+    HandlerDef(this.getClass.getClassLoader,
+      "router",
+      "controllers.ApiHelpController",
+      "getResource",
+      Seq(classOf[String]),
+      "GET",
+      """""",
+      this.prefix + """api-docs/api/todos"""
+    )
+  )
+
+  // @LINE:33
+  private[this] lazy val controllers_Assets_at8_route = Route("GET",
+    PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("assets/"), DynamicPart("file", """.+""",false)))
+  )
+  private[this] lazy val controllers_Assets_at8_invoker = createInvoker(
+    Assets_4.at(fakeValue[String], fakeValue[String]),
+    HandlerDef(this.getClass.getClassLoader,
+      "router",
+      "controllers.Assets",
+      "at",
+      Seq(classOf[String], classOf[String]),
+      "GET",
+      """ Map static resources from the /public folder to the /assets URL path""",
+      this.prefix + """assets/""" + "$" + """file<.+>"""
+    )
+  )
+
 
   def routes: PartialFunction[RequestHeader, Handler] = {
   
@@ -182,6 +258,30 @@ class Routes(
     case controllers_AnimalController_animalById4_route(params) =>
       call(params.fromPath[Int]("id", None)) { (id) =>
         controllers_AnimalController_animalById4_invoker.call(AnimalController_3.animalById(id))
+      }
+  
+    // @LINE:21
+    case controllers_Assets_at5_route(params) =>
+      call(Param[String]("path", Right("/public")), Param[String]("file", Right("index.html"))) { (path, file) =>
+        controllers_Assets_at5_invoker.call(Assets_4.at(path, file))
+      }
+  
+    // @LINE:23
+    case controllers_ApiHelpController_getResources6_route(params) =>
+      call { 
+        controllers_ApiHelpController_getResources6_invoker.call(ApiHelpController_5.getResources)
+      }
+  
+    // @LINE:28
+    case controllers_ApiHelpController_getResource7_route(params) =>
+      call(Param[String]("path", Right("/api/todos"))) { (path) =>
+        controllers_ApiHelpController_getResource7_invoker.call(ApiHelpController_5.getResource(path))
+      }
+  
+    // @LINE:33
+    case controllers_Assets_at8_route(params) =>
+      call(Param[String]("path", Right("/public")), params.fromPath[String]("file", None)) { (path, file) =>
+        controllers_Assets_at8_invoker.call(Assets_4.at(path, file))
       }
   }
 }

@@ -4,7 +4,7 @@
 		module="animals_2.11"
 		revision="1.0"
 		status="integration"
-		publication="20160809223648"
+		publication="20160810005935"
 	>
 		<description>
 		animals
@@ -27,7 +27,9 @@
 	</configurations>
 	<publications>
 		<artifact name="animals_2.11" type="pom" ext="pom" conf="pom"/>
-		<artifact name="animals_2.11" type="jar" ext="jar" conf="optional" e:classifier="download"/>
+		<artifact name="animals_2.11" type="jar" ext="jar" conf="compile"/>
+		<artifact name="animals_2.11" type="src" ext="jar" conf="sources" e:classifier="sources"/>
+		<artifact name="animals_2.11" type="doc" ext="jar" conf="docs" e:classifier="javadoc"/>
 	</publications>
 	<dependencies>
 		<dependency org="org.scala-lang" name="scala-compiler" rev="2.11.7" conf="scala-tool->default,optional(default)"/>
@@ -45,5 +47,6 @@
 		<dependency org="com.typesafe.slick" name="slick_2.11" rev="3.1.1" conf="compile->default(compile)"/>
 		<dependency org="com.typesafe.slick" name="slick-codegen_2.11" rev="3.1.1" conf="compile->default(compile)"/>
 		<dependency org="mysql" name="mysql-connector-java" rev="5.1.39" conf="compile->default(compile)"/>
+		<dependency org="com.wordnik" name="swagger-play2_2.11" rev="1.3.12" conf="compile->default(compile)"/>
 	</dependencies>
 </ivy-module>

@@ -1,7 +1,7 @@
 
 // @GENERATOR:play-routes-compiler
 // @SOURCE:/Users/richardpianka/Code/animals/conf/routes
-// @DATE:Tue Aug 09 22:42:22 EDT 2016
+// @DATE:Tue Aug 09 23:35:59 EDT 2016
 
 import play.api.mvc.{ QueryStringBindable, PathBindable, Call, JavascriptLiteral }
 import play.core.routing.{ HandlerDef, ReverseRouteContext, queryString, dynamicString }
@@ -18,6 +18,25 @@ package controllers {
       if (_prefix.endsWith("/")) "" else "/"
     }
 
+  
+    // @LINE:21
+    def at(file:String): Call = {
+    
+      (file: @unchecked) match {
+      
+        // @LINE:21
+        case (file) if file == "index.html" =>
+          implicit val _rrc = new ReverseRouteContext(Map(("path", "/public"), ("file", "index.html")))
+          Call("GET", _prefix)
+      
+        // @LINE:33
+        case (file)  =>
+          implicit val _rrc = new ReverseRouteContext(Map(("path", "/public")))
+          Call("GET", _prefix + { _defaultPrefix } + "assets/" + implicitly[PathBindable[String]].unbind("file", file))
+      
+      }
+    
+    }
   
     // @LINE:13
     def versioned(file:Asset): Call = {
@@ -83,6 +102,27 @@ package controllers {
     def message(): Call = {
       import ReverseRouteContext.empty
       Call("GET", _prefix + { _defaultPrefix } + "message")
+    }
+  
+  }
+
+  // @LINE:23
+  class ReverseApiHelpController(_prefix: => String) {
+    def _defaultPrefix: String = {
+      if (_prefix.endsWith("/")) "" else "/"
+    }
+
+  
+    // @LINE:23
+    def getResources(): Call = {
+      import ReverseRouteContext.empty
+      Call("GET", _prefix + { _defaultPrefix } + "api-docs")
+    }
+  
+    // @LINE:28
+    def getResource(): Call = {
+      implicit val _rrc = new ReverseRouteContext(Map(("path", "/api/todos")))
+      Call("GET", _prefix + { _defaultPrefix } + "api-docs/api/todos")
     }
   
   }
