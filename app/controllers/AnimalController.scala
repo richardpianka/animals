@@ -1,13 +1,15 @@
 package controllers
 
 import javax.inject._
-import com.wordnik.swagger.annotations.{Api, ApiOperation}
+
 import contracts.{Animal, AnimalList}
 import data.Tables._
 import com.google.inject.Singleton
+import io.swagger.annotations.{Api, ApiOperation}
 import play.api.libs.json.Json
 import play.api.mvc._
 import slick.driver.MySQLDriver.api._
+
 import scala.concurrent.Await
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration._
@@ -17,7 +19,7 @@ import scala.language.postfixOps
   * Created by richardpianka on 8/9/16.
   */
 @Singleton
-@Api(value = "/api/todos", description = "Operations with Todos")
+@Api(value = "/api/animals", description = "Animals")
 class AnimalController @Inject() extends Controller {
 
   @ApiOperation(value = "Get all animals",
@@ -60,6 +62,12 @@ class AnimalController @Inject() extends Controller {
     }, 60 seconds)
   }
 
+  @ApiOperation(
+    value = "Get animal by id",
+    notes = "Returns an animal given an id",
+    response = classOf[Animal],
+    httpMethod = "GET"
+  )
   def animalById(id: Int) = Action {
 
     val db = Database.forURL(

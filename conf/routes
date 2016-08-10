@@ -2,32 +2,24 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-# An example controller showing a sample home page
-GET     /                           controllers.HomeController.index
-# An example controller showing how to use dependency injection
-GET     /count                      controllers.CountController.count
-# An example controller showing how to write asynchronous code
-GET     /message                    controllers.AsyncController.message
-
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
+GET     /assets/*file             controllers.Assets.versioned(path="/public", file: Asset)
 
+
+
+# Animals API
 GET     /animals/:id                controllers.AnimalController.animalById(id: Int)
-
+GET     /animals                    controllers.AnimalController.animals()
 
 
 
 # swagger
-GET / controllers.Assets.at(path="/public", file="index.html")
+GET /                           controllers.Assets.at(path="/public", file="index.html")
+GET /api-docs                   controllers.ApiHelpController.getResources
+GET /swagger.json               controllers.ApiHelpController.getResources
 
-GET /api-docs controllers.ApiHelpController.getResources
 
-#POST /login controllers.SecurityController.login()
-#POST /logout controllers.SecurityController.logout()
-
-GET /api-docs/api/todos controllers.ApiHelpController.getResource(path = "/api/todos")
-#GET /todos controllers.TodoController.getAllTodos()
-#POST /todos controllers.TodoController.createTodo()
+GET /api-docs/api/animals       controllers.ApiHelpController.getResource(path = "/api/animals")
 
 # Map static resources from the /public folder to the /assets URL path
-GET /assets/*file controllers.Assets.at(path="/public", file)
+# GET /assets/*file controllers.Assets.at(path="/public", file)
